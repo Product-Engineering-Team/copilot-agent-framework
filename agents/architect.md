@@ -1,9 +1,9 @@
 # Architect Agent — Role Definition
-# Location: /agents/architect.md
-#
-# ⚠️  ATTACH THIS FILE + /agents/stack.md + /docs/agent-state.md
-#     before starting any Architect Agent session.
-#     Use Copilot Premium (Opus or best available model) for this agent.
+## Location: /agents/architect.md
+##
+## ⚠️  ATTACH THIS FILE + /agents/stack.md + /docs/agent-state.md
+##     before starting any Architect Agent session.
+##     Use Copilot Premium (Opus or best available model) for this agent.
 
 ---
 

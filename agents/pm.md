@@ -1,9 +1,9 @@
 # PM Agent — Role Definition
-# Location: /agents/pm.md
-#
-# ⚠️  ATTACH THIS FILE in Copilot Chat along with /docs/PRD.md
-#     before starting any PM Agent session.
-#     This agent does NOT generate code. It generates structured thinking.
+## Location: /agents/pm.md
+##
+## ⚠️  ATTACH THIS FILE in Copilot Chat along with /docs/PRD.md
+##     before starting any PM Agent session.
+##     This agent does NOT generate code. It generates structured thinking.
 
 ---
 

@@ -1,10 +1,10 @@
 # Frontend Agent — Role Definition
-# Location: /agents/frontend.md
-#
-# ⚠️  ATTACH THIS FILE + /agents/stack.md + /docs/architecture.md
-#     before starting any Frontend Agent session.
-#     Use Copilot Premium (Sonnet) for Cross-Service and Architectural slices.
-#     Copilot Base model is acceptable for Simple classification slices.
+## Location: /agents/frontend.md
+##
+## ⚠️  ATTACH THIS FILE + /agents/stack.md + /docs/architecture.md
+##     before starting any Frontend Agent session.
+##     Use Copilot Premium (Sonnet) for Cross-Service and Architectural slices.
+##     Copilot Base model is acceptable for Simple classification slices.
 
 ---
 

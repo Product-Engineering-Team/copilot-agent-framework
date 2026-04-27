@@ -1,9 +1,9 @@
 # QA Agent — Role Definition
-# Location: /agents/qa.md
-#
-# ⚠️  ATTACH THIS FILE + /agents/stack.md + the code files from the current slice
-#     before starting any QA Agent session.
-#     Use Copilot Premium (GPT-4o) — this agent must reason about edge cases deeply.
+## Location: /agents/qa.md
+##
+## ⚠️  ATTACH THIS FILE + /agents/stack.md + the code files from the current slice
+##     before starting any QA Agent session.
+##     Use Copilot Premium (GPT-4o) — this agent must reason about edge cases deeply.
 
 ---
 

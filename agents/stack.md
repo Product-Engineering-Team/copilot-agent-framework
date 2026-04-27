@@ -1,11 +1,11 @@
 # Project Stack Definition
-# Location: /agents/stack.md
-#
-# ⚠️  THIS FILE IS THE SINGLE SOURCE OF TRUTH for all technology decisions.
-#     All agents must read this file before generating any output.
-#     No library, framework, or tool should be used unless declared here.
-#     Versions are intentionally omitted — always use the latest stable release
-#     available at the time of implementation.
+## Location: /agents/stack.md
+##
+## ⚠️  THIS FILE IS THE SINGLE SOURCE OF TRUTH for all technology decisions.
+##     All agents must read this file before generating any output.
+##     No library, framework, or tool should be used unless declared here.
+##     Versions are intentionally omitted — always use the latest stable release
+##     available at the time of implementation.
 
 ---
 
@@ -42,8 +42,9 @@ Framework:        [ Express | Fastify | FastAPI | Django | NestJS | Flask | None
 Language:         [ TypeScript | JavaScript | Python | Go | Java | C# ]
 Input Validation: [ Zod | Pydantic | Joi | class-validator | None ]
 ORM / DB Layer:   [ Prisma | Drizzle | SQLAlchemy | TypeORM | Raw SQL | None ]
-Auth Strategy:    [ JWT | Session | OAuth2 | API Key | Supabase Auth | None ]
+Auth Strategy:    [ Session | OAuth2 | OIDC | JWT | API Key | Auth.js | None ]
 API Style:        [ REST | GraphQL | tRPC | gRPC | Mixed ]
+Background Jobs:  [ BullMQ | Celery | Sidekiq-style queue | Cron only | None ]
 
 > Instructions to agents: All API routes must use the validation library declared
 > above. All database access must go through the ORM/DB layer declared above.
@@ -54,8 +55,8 @@ API Style:        [ REST | GraphQL | tRPC | gRPC | Mixed ]
 ## 🗄️ DATABASE
 
 Primary DB:       [ PostgreSQL | MySQL | MongoDB | SQLite | Supabase | PlanetScale | None ]
-Hosting:          [ Supabase | Railway | PlanetScale | Self-hosted | Local only ]
-Migrations:       [ Prisma Migrate | Alembic | Flyway | Supabase CLI | Manual | None ]
+Hosting:          [ Self-hosted | Managed Cloud | Local only ]
+Migrations:       [ Prisma Migrate | Alembic | Flyway | Manual | None ]
 Caching:          [ Redis | Upstash | In-memory | None ]
 Search:           [ PostgreSQL FTS | Typesense | Meilisearch | Algolia | None ]
 
@@ -67,10 +68,15 @@ Search:           [ PostgreSQL FTS | Typesense | Meilisearch | Algolia | None ]
 
 ## 🔐 AUTH & SECURITY
 
-Auth Provider:    [ Supabase Auth | Auth.js | Clerk | Firebase Auth | Custom JWT | None ]
-Session Storage:  [ HTTP-only Cookie | localStorage (dev only) | Supabase Session ]
-Role System:      [ Yes | No ]
-2FA:              [ Yes | No ]
+Auth Provider:        [ Auth.js | Azure AD / Microsoft Entra ID | Clerk | Firebase Auth | Custom JWT | None ]
+Identity Provider:    [ Azure AD / Microsoft Entra ID | Okta | Google Workspace | Custom OIDC | None ]
+Session Storage:      [ HTTP-only Cookie | Redis | Database | localStorage (dev only) | None ]
+Authorization Model:  [ RBAC | ABAC | Mixed | None ]
+Role System:          [ Yes | No ]
+2FA:                  [ Yes | No ]
+Secrets Management:   [ .env files | Docker secrets | AWS Secrets | Azure Key Vault | None ]
+Audit Logging:        [ Yes | No ]
+Security Headers:     [ Enabled | Disabled ]
 
 ---
 
@@ -87,13 +93,32 @@ Coverage Target:  [ 80% | 70% | Best effort | None ]
 
 ---
 
+## 📡 OBSERVABILITY & OPERATIONS
+
+Structured Logging: [ JSON | Plain text | None ]
+Metrics:            [ Prometheus | OpenTelemetry Metrics | None ]
+Tracing:            [ OpenTelemetry | Jaeger | None ]
+Dashboards:         [ Grafana | None ]
+Alerting:           [ Grafana Alerts | Prometheus Alertmanager | External service | None ]
+Health Checks:      [ Liveness only | Liveness + Readiness | None ]
+Error Tracking:     [ Sentry | OpenTelemetry | Logs only | None ]
+
+> Instructions to agents: Critical flows must include observability coverage
+> appropriate to the declared stack. Do not introduce telemetry platforms,
+> logging backends, or monitoring services that are not listed here first.
+
+---
+
 ## 🚀 DEPLOYMENT & INFRASTRUCTURE
 
-Frontend Host:    [ Vercel | Netlify | Cloudflare Pages | AWS | Azure | None ]
-Backend Host:     [ Railway | Fly.io | Render | AWS | Azure | GCP | None ]
-Containerization: [ Docker | Docker Compose | None ]
-CI/CD:            [ GitHub Actions | GitLab CI | CircleCI | None ]
-Environment Mgmt: [ .env files | dotenv | AWS Secrets | Azure Key Vault | None ]
+Frontend Host:      [ Vercel | Netlify | Cloudflare Pages | AWS | Azure | Self-hosted | None ]
+Backend Host:       [ Railway | Fly.io | Render | AWS | Azure | GCP | Self-hosted | None ]
+Containerization:   [ Docker | Docker Compose | Kubernetes | None ]
+Reverse Proxy:      [ Nginx | Traefik | Caddy | Cloud Load Balancer | None ]
+CI/CD:              [ GitHub Actions | GitLab CI | CircleCI | None ]
+Environment Mgmt:   [ .env files | dotenv | Docker secrets | AWS Secrets | Azure Key Vault | None ]
+Background Workers: [ Dedicated worker service | In-app worker | Cron only | None ]
+Backups:            [ Automated | Manual | None ]
 
 ---
 

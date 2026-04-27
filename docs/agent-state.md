@@ -1,10 +1,10 @@
 # Agent State — Feature Tracker & Change Log
-# Location: /docs/agent-state.md
-#
-# This file is the shared memory of the agent pipeline.
-# All agents read this file to understand current project state.
-# Update this file at the end of every agent session.
-# The Change Log section feeds directly into monthly KPI reporting.
+## Location: /docs/agent-state.md
+##
+## This file is the shared memory of the agent pipeline.
+## All agents read this file to understand current project state.
+## Update this file at the end of every agent session.
+## The Change Log section feeds directly into monthly KPI reporting.
 
 ---
 
@@ -33,23 +33,25 @@
 > One row per vertical slice. Add slices as the PM Agent defines them.
 
 ### Status Legend
-⏳ Pending     — Not started, waiting for dependency
-🔵 Classified  — PM Agent complete, ready for Architect Agent
-📐 Specced     — Architect Agent complete, ready for implementation
-🔄 In Progress — Implementation underway
-🧪 In Review   — QA Agent reviewing
-✅ Done        — QA passed, PR merged
-🚫 Blocked     — Waiting on external dependency
+
+⏳ Pending     — Not started, waiting for dependency  
+🔵 Classified  — PM Agent complete, ready for Architect Agent  
+📐 Specced     — Architect Agent complete, ready for implementation  
+🔄 In Progress — Implementation underway  
+🧪 In Review   — QA, Security, Observability, or DevOps review in progress  
+✅ Done        — Approved and merged  
+🚫 Blocked     — Waiting on external dependency  
 
 ---
 
 ### Feature: [Feature Name]
+
 > Replace this block with actual features. Add one block per feature.
 
-| Slice | Description | Classification | Risk | PM | Architect | Backend | Frontend | QA | Status |
-|---|---|---|---|---|---|---|---|---|---|
-| [Feature]-01 | [Slice description] | Simple | Low | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ Pending |
-| [Feature]-02 | [Slice description] | Cross-Service | Medium | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ Pending |
+| Slice | Description | Classification | Risk | PM | Architect | Backend | Frontend | QA | DevOps | Observability | Security | Status |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| [Feature]-01 | [Slice description] | Simple | Low | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | N/A | N/A | N/A | ⏳ Pending |
+| [Feature]-02 | [Slice description] | Cross-Service | Medium | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ | ⏳ Pending |
 
 **Dependencies:**
 - [Feature]-02 is blocked by: [Feature]-01
@@ -70,6 +72,9 @@
 | Backend Agent | — | — | Idle | YYYY-MM-DD |
 | Frontend Agent | — | — | Idle | YYYY-MM-DD |
 | QA Agent | — | — | Idle | YYYY-MM-DD |
+| DevOps Agent | — | — | Idle | YYYY-MM-DD |
+| Observability Agent | — | — | Idle | YYYY-MM-DD |
+| Security Agent | — | — | Idle | YYYY-MM-DD |
 
 ---
 
@@ -90,9 +95,9 @@
 
 ### [YYYY-MM] — [Month Name Year]
 
-| Change ID | Slice | Classification | Risk | Agent | Model | Gen Type | Avoided Redesign | Hallucination | Stack OK |
-|---|---|---|---|---|---|---|---|---|---|
-| ENH-001 | — | — | — | — | — | — | — | — | — |
+| Change ID | Slice | Classification | Risk | Agent | Model | Gen Type | Avoided Redesign | Hallucination | Stack OK | Security OK | Observability OK | Deployment OK |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| ENH-001 | — | — | — | — | — | — | — | — | — | — | — | — |
 
 **Monthly Summary:**
 
@@ -107,6 +112,9 @@
 | Hallucinations detected | 0 | 0 | — |
 | Avoided full redesign | 0 | — | — |
 | New undeclared dependencies | 0 | 0 | — |
+| Security reviews completed | 0 | — | — |
+| Observability reviews completed | 0 | — | — |
+| Deployment reviews completed | 0 | — | — |
 
 ---
 
@@ -116,12 +124,26 @@
 > Full details live in `/docs/architecture.md`.
 
 ### Active API Contracts
+
 | Endpoint | Method | Status | ADR |
 |---|---|---|---|
 | — | — | — | — |
 
 ### Active DB Tables
+
 | Table | Status | Migration | Last Modified |
+|---|---|---|---|
+| — | — | — | — |
+
+### Runtime / Platform Components
+
+| Component | Purpose | Status | Notes |
+|---|---|---|---|
+| — | — | — | — |
+
+### Observability Baselines
+
+| Area | Signal Type | Status | Notes |
 |---|---|---|---|
 | — | — | — | — |
 
@@ -166,6 +188,9 @@
 -
 
 **Agent performance notes:**
+-
+
+**Security / observability / deployment notes:**
 -
 
 **Action items:**
