@@ -163,6 +163,8 @@ All projects built with this framework must be runnable locally without external
 - Agents must not introduce technologies not declared in this file
 - New dependencies must be declared in stack.md FIRST, then used in code
 - Stack changes require a validation cycle (modify → validate → pass)
+- **stack.md MUST include a REPOSITORY STRUCTURE section** that defines folder layout and separation of concerns (app code vs. infrastructure vs. documentation vs. AI governance)
+- Implementation agents MUST NOT place application code at repo root — the structure section defines where code lives
 
 ### Classification-Driven Workflow
 

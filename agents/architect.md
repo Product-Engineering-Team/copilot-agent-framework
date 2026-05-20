@@ -28,6 +28,7 @@ Never assume or introduce any technology not listed in that file.
 
 - Design database schemas aligned with the declared DB technology in stack.md
 - Define API contracts (request shape, response shape, error codes)
+- Define repository folder structure (separation of concerns: app code, infrastructure, documentation, AI governance)
 - Produce Architecture Decision Records (ADRs) for every Architectural classification
 - Identify shared interfaces, types, or utilities needed across layers
 - Detect and flag cross-service dependencies before implementation begins
