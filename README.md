@@ -230,6 +230,34 @@ The `slice-implementation` prompt guides each slice through 5 phases:
 
 ---
 
+## Prompt Creation Strategy
+
+Prompts are created **on demand**, not upfront. This is deliberate:
+
+### When to create a new prompt
+
+1. **A step needs to be repeated** across projects or slices and lacks formal guidance
+2. **An error pattern repeats** and needs a process to prevent it
+3. **A new team member** needs to execute without prior context
+
+### When NOT to create a new prompt
+
+1. The existing generic prompt already covers the case (e.g., `slice-implementation` works for all slices)
+2. The step only happens once in the project lifecycle
+3. The step hasn't been validated in practice yet (prompts written without execution have errors)
+
+### Key principle
+
+**One well-tested generic prompt > many untested specific prompts.**
+
+The `slice-implementation` prompt handles all slices. The `adr-resolution` prompt handles all ADRs. Creating a prompt per slice or per ADR would be over-engineering.
+
+### Prompt validation rule
+
+A prompt is only considered stable after it has been **executed at least once with real verification**. Until then, it is `status: draft` and may contain errors discovered during first execution.
+
+---
+
 ## Topics
 
 `github-copilot` `ai-agents` `vscode` `developer-tools` `prompt-engineering` `ai-governance` `multi-agent` `vertical-slices` `adr` `local-first`
