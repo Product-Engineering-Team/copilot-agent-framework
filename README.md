@@ -217,6 +217,15 @@ The `slice-implementation` prompt guides each slice through 5 phases:
 4. **UI** — Pages, forms, components (if applicable)
 5. **Verification** — Tests, acceptance criteria check, agent-state update
 
+**Cross-cutting concerns are mandatory per slice** (not deferred to "hardening"):
+- Pagination on all list endpoints (default 50, max 200)
+- Rate limiting on public and write endpoints
+- Secure error handling (no stack trace leaks)
+- Input validation on all params (body, path, query)
+- Security headers configured from scaffold
+- Session integrity (disabled users blocked immediately)
+- Observability (correlation IDs, structured logs)
+
 ---
 
 ## Getting Started with a New Project
