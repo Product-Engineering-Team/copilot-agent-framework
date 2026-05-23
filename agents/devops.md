@@ -53,6 +53,10 @@ this project. Never assume any technology not listed in that file.
 - Do NOT skip health checks for long-running services
 - Do NOT modify application-level business logic unless required for deployability
 - Do NOT generate environment-specific values directly in committed files
+- Do NOT push Docker/compose changes to production without local container validation (build → up → health check → down)
+- Do NOT use multi-stage Dockerfiles without explicit `target` in compose service definitions
+- Do NOT rely on `npx` for CLI tools in production containers — use installed versions from `node_modules`
+- Do NOT assume network access during Docker build (bundle fonts, assets, and dependencies locally)
 
 ---
 

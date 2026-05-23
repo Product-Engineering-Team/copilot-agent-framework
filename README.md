@@ -51,6 +51,11 @@ ARCHITECTURE PHASE (Product → Implementation Gate)
 IMPLEMENTATION PHASE (Code Execution)
   slice-implementation (execute per slice, in dependency order)
 
+HARDENING PHASE (Implementation → Production Gate)
+  deployment-validation (Docker build + local compose up + health check)
+  prd-compliance-audit (PRD vs. actual implementation gap analysis)
+  operational-readiness (logs, observability, secrets rotation)
+
 VALIDATION (Cross-cutting, any phase)
   code-audit, quick-review
 ```
@@ -76,6 +81,10 @@ Each project maintains versioned prompts organized by phase:
 │   └── 04-adr-resolution.md
 ├── implementation/          # Code Execution
 │   └── 01-slice-implementation.md
+├── hardening/               # Implementation → Production Gate
+│   ├── 01-deployment-validation.md
+│   ├── 02-prd-compliance-audit.md
+│   └── 03-operational-readiness.md
 └── validation/              # Cross-cutting
     └── code-audit.md
 ```
@@ -228,6 +237,62 @@ The `slice-implementation` prompt guides each slice through 5 phases:
 
 ---
 
+## Hardening Phase
+
+The Hardening Phase bridges the gap between "all slices implemented" and "production ready." This phase was identified through practice: implementation completion does not equal deployment readiness.
+
+### Why This Phase Exists
+
+In practice, the following problems consistently appear after implementation:
+- Docker builds fail due to runtime dependencies (OpenSSL, fonts, binary targets)
+- CI pipelines hang or fail due to environment differences (auth modes, reporter blocking)
+- Containers start the wrong process (multi-stage target not specified)
+- Services crash due to empty env vars or missing configuration
+- The application works in dev but not in production mode
+
+### Hardening Gate Sequence
+
+1. **Deployment Validation** — Docker build + local compose up + health check pass
+2. **PRD Compliance Audit** — Gap analysis between PRD requirements and actual implementation
+3. **Operational Readiness** — Log levels, observability, secrets rotation, monitoring
+
+### Critical Rule: Local Validation Before Production
+
+**NEVER push deployment changes to production without local container validation.**
+
+The validation sequence is:
+```bash
+docker compose build                              # Image builds without errors
+docker compose up -d postgres redis [infra...]    # Infrastructure starts
+docker compose --profile setup run --rm migrate   # Migrations apply
+docker compose up -d app                          # App starts (not migrate loop)
+curl http://localhost:<port>/api/health            # Health check responds
+docker compose down -v                            # Cleanup
+```
+
+If any step fails locally, it will fail in production. Fix locally first.
+
+### Common Docker/Alpine Pitfalls (Lessons Learned)
+
+| Problem | Root Cause | Fix |
+|---------|-----------|-----|
+| Prisma engines fail with `libssl.so.1.1 not found` | Alpine has OpenSSL 3.x, Prisma auto-detects 1.1.x | Install `openssl` + set `binaryTargets = ["native", "linux-musl-openssl-3.0.x"]` in schema |
+| `npx` downloads wrong package version | Package not in `node_modules`, npx fetches latest (breaking) | Use dedicated stage with full `node_modules` or pin version |
+| App container runs wrong command | Multi-stage Dockerfile without explicit `target` in compose | Always specify `target: <stage>` in compose build config |
+| Build fails fetching external resources | Docker build has no internet for Google Fonts, CDNs | Bundle all assets locally (`next/font/local`, vendored files) |
+| Redis crashes on empty `--requirepass` | Empty env var passed as argument | Don't use password for internal-only services, or use conditional command |
+| Container not recreated after image rebuild | `docker compose up -d` reuses existing container | Use `--force-recreate` in deploy workflows |
+| CI hangs after test failure | Playwright HTML reporter opens HTTP server waiting for input | Set `open: "never"` in reporter config |
+
+### Hardening Prompt Execution Order
+
+1. Run `01-deployment-validation.md` — validates Docker + compose + health
+2. Run `02-prd-compliance-audit.md` — identifies gaps between spec and reality
+3. Run `03-operational-readiness.md` — validates logs, observability, production config
+4. Update `agent-state.md` with hardening results
+
+---
+
 ## Getting Started with a New Project
 
 1. **Fork this template** → create your project repo
@@ -235,7 +300,8 @@ The `slice-implementation` prompt guides each slice through 5 phases:
 3. **Architecture phase:** Run prompts 00a through 04 in order
 4. **Validate:** Run `stack-validation` until pass
 5. **Implement:** Run `slice-implementation` per slice in dependency order
-6. **Track:** Update `agent-state.md` after every session
+6. **Harden:** Run `deployment-validation` → `prd-compliance-audit` → `operational-readiness`
+7. **Track:** Update `agent-state.md` after every session
 
 ---
 
